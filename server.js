@@ -8,11 +8,10 @@ var app = express();
 
 app.get('/', (req,res) => {
 
-	const ua = req.headers['user-agent'],
-	headers = {
-		ip:req.headers['x-forwarded-for'], 	
-		language:req.headers['accept-language'], 	
-		software:req.headers['user-agent'].match(/\(.+\;.+\d\)/), 	
+	const headers = {
+		ip: req.connection.remoteAddress,
+		language:req.headers['accept-language'].match(/[^,]*/)[0], 	
+		software:req.headers['user-agent'].match(/\(.+\;.+\d\)/)[0], 	
 	}
 		res.send(headers);
 });
